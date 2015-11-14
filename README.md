@@ -1,5 +1,8 @@
 # Fluent-plugin-ignore-filter
 
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-ignore-filter.svg)](https://badge.fury.io/rb/fluent-plugin-ignore-filter)
+[![Dependency Status](https://gemnasium.com/bungoume/fluent-plugin-ignore-filter.svg)](https://gemnasium.com/bungoume/fluent-plugin-ignore-filter)
+
 [Fluentd](http://fluentd.org) filter plugin to ignore messages.
 
 

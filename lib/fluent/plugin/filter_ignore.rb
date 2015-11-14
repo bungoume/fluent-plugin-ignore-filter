@@ -7,6 +7,10 @@ module Fluent
     (1..REGEXP_MAX_NUM).each {|i| config_param :"regexp#{i}", :string, :default => nil }
     (1..REGEXP_MAX_NUM).each {|i| config_param :"exclude#{i}", :string, :default => nil }
 
+    # for test
+    attr_reader :regexps
+    attr_reader :excludes
+
     def configure(conf)
       super
 

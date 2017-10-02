@@ -6,7 +6,7 @@ class IgnoreFilterTest < Test::Unit::TestCase
   end
 
   def create_driver(conf='')
-    Fluent::Test::FilterTestDriver.new(Fluent::IgnoreFilter).configure(conf, true)
+    Fluent::Test::Driver::Filter.new(Fluent::Plugin::IgnoreFilter).configure(conf)
   end
 
   def test_configure_default
@@ -23,28 +23,28 @@ class IgnoreFilterTest < Test::Unit::TestCase
   def test_emit
     d1 = create_driver(%[regexp1 level info])
 
-    d1.run do
-      d1.emit({'level'=>'info','ident'=>'kernel','server_name'=>'prod-web','message'=>'some info'})
-      d1.emit({'level'=>'warn','ident'=>'kernel','server_name'=>'prod-web','message'=>'failed to do something'})
+    d1.run(default_tag: 'test') do
+      d1.feed({'level'=>'info','ident'=>'kernel','server_name'=>'prod-web','message'=>'some info'})
+      d1.feed({'level'=>'warn','ident'=>'kernel','server_name'=>'prod-web','message'=>'failed to do something'})
     end
 
-    emits = d1.emits
+    filtered = d1.filtered
 
-    assert_equal(1, emits.length)
-    assert_equal('warn', emits[0][2]['level'])
+    assert_equal(1, filtered.length)
+    assert_equal('warn', filtered[0][1]['level'])
   end
 
   def test_emit_removebyident
     d1 = create_driver(%[regexp1 ident kernel])
 
-    d1.run do
-      d1.emit({'level'=>'info','ident'=>'kernel'})
-      d1.emit({'level'=>'warn','ident'=>'kernel'})
+    d1.run(default_tag: 'test') do
+      d1.feed({'level'=>'info','ident'=>'kernel'})
+      d1.feed({'level'=>'warn','ident'=>'kernel'})
     end
 
-    emits = d1.emits
+    filtered = d1.filtered
 
-    assert_equal(0, emits.length)
+    assert_equal(0, filtered.length)
   end
 
 end

@@ -1,4 +1,6 @@
-module Fluent
+require 'fluent/plugin/filter'
+
+module Fluent::Plugin
   class IgnoreFilter < Filter
     Fluent::Plugin.register_filter('ignore', self)
 

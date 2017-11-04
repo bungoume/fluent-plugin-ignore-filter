@@ -7,6 +7,14 @@
 [Fluentd](http://fluentd.org) filter plugin to ignore messages.
 
 
+## Requirements
+
+| fluent-plugin-ignore-filter | fluentd    | ruby   |
+|-----------------------------|------------|--------|
+| >= 2.0.0                    | >= v0.14.0 | >= 2.2 |
+| < 1.2.0                     | >= v0.12.0 | >= 1.9 |
+
+
 ## Installation
 
 ```bash
